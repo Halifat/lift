@@ -28,6 +28,7 @@ public class MyLogger {
     }
 	public static void erroreMessage(String message) {
 		logger.error(message);
+		textArea.setText(message);
 	}
 
 }

@@ -196,12 +196,20 @@ public class Lift extends JFrame {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			int maxPersons = Integer.parseInt(count.getText());
-			int countPersons = Integer.parseInt(all.getText());
-			int countFloors = 4;
+			int countPeople;
+			int maxPeople;
 			MyLogger.setTextArea(textArea);
-			Monitor monitor = new Monitor(maxPersons, countPersons);
-			ArrayList<Thread> people = fillListPeople(countPersons, countFloors, monitor);
+			try {
+				maxPeople = Integer.parseInt(count.getText());
+				countPeople = Integer.parseInt(all.getText());
+			} catch (NumberFormatException e1) {
+				e1.printStackTrace();
+				MyLogger.erroreMessage("Ошибка ввода данных");
+				return;
+			}
+			int countFloors = 4;
+			Monitor monitor = new Monitor(maxPeople, countPeople);
+			ArrayList<Thread> people = fillListPeople(countPeople, countFloors, monitor);
 			sendMessages(people);
 			startThread(new ElevatorController(monitor));
 			startThread(new Elevator(monitor, countFloors, contentPane));
