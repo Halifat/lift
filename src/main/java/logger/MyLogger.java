@@ -20,11 +20,12 @@ public class MyLogger {
     public static void sendMessage(String message){
 
 		logger.info(message);
-		textArea.setText(message + infoMessage);
+		textArea.setText(textArea.getText() + "\n" + message);
     }
 
 	public static void setTextArea(JTextArea area) {
     	textArea=area;
+		area.setText(infoMessage);
     }
 	public static void erroreMessage(String message) {
 		logger.error(message);

@@ -1,4 +1,5 @@
 package panels.mainframe;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -22,10 +24,6 @@ import threads.Passenger;
 import threads.SomeThread;
 
 public class Lift extends JFrame {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private static MainPanel contentPane;// основная панель фрейма
 	private JTextArea textArea;// область для логирования
@@ -47,26 +45,29 @@ public class Lift extends JFrame {
 	 * Create the frame.
 	 */
 	public Lift() {
+		setResizable(false);
 		allThreads = new ArrayList<Thread>();
 		ArrayList<Integer> coordinates = new ArrayList<Integer>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 622, 560);
+		setBounds(100, 100, 902, 599);
 		contentPane = new MainPanel();
 		contentPane.setBackground(new Color(240, 255, 240));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		textArea = new JTextArea();
-		textArea.setBounds(310, 456, 286, 55);
-		contentPane.add(textArea);
+		textArea.setEditable(false);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(600, 10, 286, 550);
+		contentPane.add(scrollPane);
 		coordinates.add(291);
 		coordinates.add(221);
 		coordinates.add(151);
 		coordinates.add(81);
 		coordinates.add(11);
 		contentPane.setCoordinates(coordinates);
-		
+
 		JLabel label = new JLabel("Вход");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		label.setBounds(8, 372, 91, 46);
@@ -84,7 +85,7 @@ public class Lift extends JFrame {
 		textField.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Количество людей");
-		lblNewLabel_1.setBounds(109, 490, 97, 14);
+		lblNewLabel_1.setBounds(109, 490, 115, 14);
 		contentPane.add(lblNewLabel_1);
 
 		this.textField_1 = new JTextField();
@@ -120,7 +121,6 @@ public class Lift extends JFrame {
 		});
 		btnNewButton_1.setBounds(107, 429, 89, 23);
 		contentPane.add(btnNewButton_1);
-
 
 	}
 
@@ -200,8 +200,8 @@ public class Lift extends JFrame {
 			int maxPeople;
 			MyLogger.setTextArea(textArea);
 			try {
-				maxPeople = Integer.parseInt(count.getText());
-				countPeople = Integer.parseInt(all.getText());
+				maxPeople = Integer.parseInt(all.getText());
+				countPeople = Integer.parseInt(count.getText());
 			} catch (NumberFormatException e1) {
 				e1.printStackTrace();
 				MyLogger.erroreMessage("Ошибка ввода данных");
@@ -216,4 +216,5 @@ public class Lift extends JFrame {
 			startThreads(people);
 		}
 	}
+
 }

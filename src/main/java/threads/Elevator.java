@@ -30,7 +30,7 @@ public class Elevator extends Thread implements SomeThread {
 				// подъему лифта
 				if (monitor.getFloor() <= numberFirstFloor) {
 					if (monitor.getFloor() < 0) {
-						monitor.setFloor(0);
+						monitor.setFloor(1);
 					}
 					// движение лифта ввверх
 					for (int i = monitor.getFloor(); i <= countFloors; i++) {
@@ -44,16 +44,17 @@ public class Elevator extends Thread implements SomeThread {
 				// движение лифта вниз
 				else if (monitor.getFloor() == (countFloors + 1)) {
 					monitor.setFloor(monitor.getFloor() - 2);
-					for (int i = countFloors; i > numberFirstFloor - 1; i--) {
+					for (int i = countFloors; i > numberFirstFloor; i--) {
 						panel.moveDown();
 						MyLogger.sendMessage("Вниз, остановка на " + monitor.getFloor() + " этаже");
                         goDispatcher();
                         stopElevator();
 						monitor.setFloor(monitor.getFloor() - 1);
                     }
+					monitor.setFloor(monitor.getFloor() - 1);
                 }
             }
-        }
+		}
 		MyLogger.sendMessage("Все пассажиры доставлены");
     }
 
